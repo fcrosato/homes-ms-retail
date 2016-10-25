@@ -1,27 +1,30 @@
 package com.tenx.ms.retail.product.rest;
 
-import com.tenx.ms.commons.rest.RestConstants;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.tenx.ms.commons.config.Profiles;
 import com.tenx.ms.retail.BaseTestGenerator;
 import com.tenx.ms.retail.product.rest.dto.Product;
+import org.flywaydb.test.annotation.FlywayTest;
+import org.flywaydb.test.junit.FlywayTestExecutionListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.tenx.ms.commons.config.Profiles;
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.flywaydb.test.annotation.FlywayTest;
-
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.io.File;
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(Profiles.TEST_NOAUTH)
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
 public class ProductControllerTest extends BaseTestGenerator {
     @Value("classpath:store/success/create.json")
     private File createStoreSuccess;

@@ -1,12 +1,12 @@
 package com.tenx.ms.retail.stock.service;
 
-import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.commons.util.converter.EntityConverter;
+import com.tenx.ms.retail.stock.domain.StockEntity;
+import com.tenx.ms.retail.stock.repository.StockRepository;
+import com.tenx.ms.retail.stock.rest.dto.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.tenx.ms.retail.stock.domain.StockEntity;
-import com.tenx.ms.retail.stock.repository.StockRepository;
 
 import java.util.Optional;
 

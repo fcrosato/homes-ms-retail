@@ -1,9 +1,11 @@
 package com.tenx.ms.retail.order.rest;
 
+import com.tenx.ms.commons.config.Profiles;
 import com.tenx.ms.retail.BaseTestGenerator;
 import com.tenx.ms.retail.order.rest.dto.Order;
 import org.apache.commons.io.FileUtils;
 import org.flywaydb.test.annotation.FlywayTest;
+import org.flywaydb.test.junit.FlywayTestExecutionListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +14,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.tenx.ms.commons.config.Profiles;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,8 +24,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(Profiles.TEST_NOAUTH)
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
 public class OrderControllerTest extends BaseTestGenerator {
     private static Long storeId;
     private static List<Long> productIds;
@@ -92,7 +96,7 @@ public class OrderControllerTest extends BaseTestGenerator {
     public void testBadRequestFailures() {
         String url = String.format(REQUEST_URI_ORDER, getBasePath()) + storeId;
         try {
-            List<File> fileList = Arrays.asList(createOrderInvalidStatus, createOrderInvalidEmail);
+            List<File> fileList = Arrays.asList(createOrderInvalidStatus);
             for (File file : fileList) {
                 String payload = FileUtils.readFileToString(file);
                 ResponseEntity<String> response = getStringResponse(url, payload, HttpMethod.POST);
@@ -110,7 +114,8 @@ public class OrderControllerTest extends BaseTestGenerator {
         try {
             List<File> fileList = Arrays.asList(createOrderNoDate, createOrderNoEmail, createOrderNoFirstName,
                     createOrderNoLastName, createOrderNoPhone, createOrderNoStatus, createOrderInvalidEmail,
-                    createOrderInvalidFirstName, createOrderInvalidLastName, createOrderInvalidPhone);
+                    createOrderInvalidFirstName, createOrderInvalidLastName, createOrderInvalidPhone,
+                    createOrderInvalidEmail);
             for (File file : fileList) {
                 String payload = FileUtils.readFileToString(file);
                 ResponseEntity<String> response = getStringResponse(url, payload, HttpMethod.POST);

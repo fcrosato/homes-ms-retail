@@ -5,7 +5,7 @@
   "first_name": "John",
   "last_name": "Snow",
   "email": "jsnow@got.com",
-  "phone": "213",
+  "phone": "InvalidPhoneNumber",
   "products": [
     {
       "product_id": 1,

@@ -9,8 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,13 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
+@Slf4j
 @Api(value = "stores", description = "Stores API")
 @RestController("storesControllerV1")
 @RequestMapping(RestConstants.VERSION_ONE + "/stores")
 public class StoreController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StoreService.class);
-
     @Autowired
     private StoreService service;
 
@@ -41,7 +38,7 @@ public class StoreController {
     @RequestMapping(method = RequestMethod.POST)
     public ResourceCreated<Long> create(
             @ApiParam(name = "store", value = "The Store", required = true) @RequestBody @Validated Store store) {
-        LOGGER.info("Creating store {}", store);
+        log.info("Creating store {}", store);
         return new ResourceCreated<>(this.service.create(store));
     }
 
@@ -52,7 +49,7 @@ public class StoreController {
     )
     @RequestMapping(method = RequestMethod.GET)
     public List<Store> getAll() {
-        LOGGER.info("Getting all stores");
+        log.info("Getting all stores");
         return this.service.getAll();
     }
 
@@ -64,7 +61,7 @@ public class StoreController {
     )
     @RequestMapping(value = {"/{storeId:\\d+}"}, method = RequestMethod.GET)
     public Store getById(@ApiParam(name = "storeId", value = "The store id.") @PathVariable long storeId) {
-        LOGGER.info("Getting com.tenx.ms.retail.order by id {}", storeId);
+        log.info("Getting com.tenx.ms.retail.order by id {}", storeId);
         return this.service.getByStoreId(storeId).get();
     }
 }

@@ -1,10 +1,8 @@
 package com.tenx.ms.retail.order.rest.dto;
 
-
 import com.tenx.ms.commons.validation.constraints.Email;
 import com.tenx.ms.commons.validation.constraints.PhoneNumber;
 import com.tenx.ms.retail.enums.OrderStatusEnum;
-import com.tenx.ms.retail.order.domain.OrderProductEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,7 +28,7 @@ public class Order {
     @NotNull
     private OrderStatusEnum status;
     @ApiModelProperty(value = "Order Products", required = true)
-    List<OrderProduct> products;
+    private List<OrderProduct> products;
     @ApiModelProperty(value = "Customer First Name", required = true)
     @Pattern(regexp = "^[A-Za-z]*$")
     @NotNull

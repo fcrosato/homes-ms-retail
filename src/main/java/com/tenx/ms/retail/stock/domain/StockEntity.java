@@ -5,10 +5,9 @@ import lombok.Data;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-import javax.persistence.Id;
-import java.io.Serializable;
 
 @Data
 @Entity
@@ -20,5 +19,5 @@ public class StockEntity {
     private Long productId;
     @Id
     private Long storeId;
-    Long count;
+    private Long count;
 }

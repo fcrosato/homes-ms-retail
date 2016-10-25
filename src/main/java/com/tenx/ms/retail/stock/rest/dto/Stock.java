@@ -1,10 +1,10 @@
 package com.tenx.ms.retail.stock.rest.dto;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigInteger;
 
 @Data
 @ApiModel("Stock model")

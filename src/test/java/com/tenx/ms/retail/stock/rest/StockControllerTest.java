@@ -1,32 +1,30 @@
 package com.tenx.ms.retail.stock.rest;
 
-import com.netflix.ribbon.proxy.annotation.Http;
-import com.tenx.ms.commons.rest.RestConstants;
+import com.tenx.ms.commons.config.Profiles;
 import com.tenx.ms.retail.BaseTestGenerator;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.retail.stock.service.StockService;
-import com.tenx.ms.retail.store.rest.dto.Store;
+import org.flywaydb.test.annotation.FlywayTest;
+import org.flywaydb.test.junit.FlywayTestExecutionListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.tenx.ms.commons.config.Profiles;
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.flywaydb.test.annotation.FlywayTest;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import java.io.File;
 
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
-import java.io.File;
-import java.util.List;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(Profiles.TEST_NOAUTH)
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
 public class StockControllerTest extends BaseTestGenerator {
     private static Long storeId;
     private static Long productId;
