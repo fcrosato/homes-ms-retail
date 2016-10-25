@@ -1,0 +1,19 @@
+{
+  "store_id": 1,
+  "order_date": "2016-09-01T12:00:00",
+  "status": "ORDERED",
+  "first_name": "John",
+  "last_name": "Snow",
+  "email": "jsnow@got.com",
+  "phone": "(213)-456-7890",
+  "products": [
+    {
+      "product_id": 1,
+      "count": 50
+    },
+    {
+      "product_id": 2,
+      "count": 30
+    }
+  ]
+}
