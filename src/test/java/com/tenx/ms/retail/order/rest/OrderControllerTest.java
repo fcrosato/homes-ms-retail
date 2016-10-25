@@ -1,9 +1,7 @@
 package com.tenx.ms.retail.order.rest;
 
-import com.tenx.ms.commons.rest.RestConstants;
 import com.tenx.ms.retail.BaseTestGenerator;
 import com.tenx.ms.retail.order.rest.dto.Order;
-import jdk.internal.org.objectweb.asm.TypeReference;
 import org.apache.commons.io.FileUtils;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.Before;
@@ -16,9 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.tenx.ms.commons.config.Profiles;
-
-
-import javax.xml.ws.Response;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
