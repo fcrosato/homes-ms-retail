@@ -3,9 +3,7 @@ package com.tenx.ms.retail.enums;
 import com.tenx.ms.commons.rest.IntValueEnum;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.List;
 
 
 public enum OrderStatusEnum implements IntValueEnum<OrderStatusEnum> {
@@ -13,44 +11,38 @@ public enum OrderStatusEnum implements IntValueEnum<OrderStatusEnum> {
     PACKING(1),
     SHIPPED(2);
 
-    private static final Map<OrderStatusEnum, String> STATUS_STRING_MAP;
-
-    static {
-        Map<OrderStatusEnum, String> enumMap = new HashMap<>();
-
-        enumMap.put(OrderStatusEnum.ORDERED, "Ordered");
-        enumMap.put(OrderStatusEnum.PACKING, "Packing");
-        enumMap.put(OrderStatusEnum.SHIPPED, "Shipped");
-
-        STATUS_STRING_MAP = enumMap;
-    }
-
+    private static final List<String> STATUS_NAMES = Arrays.asList("Ordered", "Packing", "Shipped");
     private final int value;
 
     OrderStatusEnum(int value) {
         this.value = value;
     }
 
-    public static OrderStatusEnum fromString(String name) {
-        if (!STATUS_STRING_MAP.containsValue(name)) {
-            throw new IllegalArgumentException("name");
+    public static OrderStatusEnum mapNameToEnum(String name) {
+        if (STATUS_NAMES.contains(name)) {
+            return OrderStatusEnum.fromValue(STATUS_NAMES.indexOf(name));
+        }
+        throw new IllegalArgumentException("Order status name not valid");
+    }
+
+    public static String mapEnumToName(OrderStatusEnum status) {
+        int statusValue = status.getValue();
+
+        if (statusValue < 0 || statusValue > STATUS_NAMES.size()) {
+            throw new IndexOutOfBoundsException("Invalid order status " + statusValue);
         }
 
-        return STATUS_STRING_MAP.entrySet()
-                .stream()
-                .filter(x -> x.getValue().equals(name))
-                .findFirst().get().getKey();
+        return STATUS_NAMES.get(statusValue);
     }
 
     public static OrderStatusEnum fromValue(int value) {
-        if (!Arrays.asList(OrderStatusEnum.values()).stream().map(OrderStatusEnum::convert).collect(Collectors.toList())
-                .contains(value)) {
-            throw new IndexOutOfBoundsException("value " + value + " is out of range");
+        if (value < 0 || value > STATUS_NAMES.size()) {
+            throw new IndexOutOfBoundsException("Invalid order status " + value);
         }
         return OrderStatusEnum.values()[value];
     }
 
-    public static int convert(OrderStatusEnum status) {
+    public static int toValue(OrderStatusEnum status) {
         return status.getValue();
     }
 
@@ -61,6 +53,6 @@ public enum OrderStatusEnum implements IntValueEnum<OrderStatusEnum> {
 
     @Override
     public String toString() {
-        return STATUS_STRING_MAP.get(this);
+        return mapEnumToName(this);
     }
 }
