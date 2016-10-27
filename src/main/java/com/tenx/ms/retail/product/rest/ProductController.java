@@ -39,7 +39,6 @@ public class ProductController {
     public ResourceCreated<Long> create(
             @ApiParam(name = "storeId", value = "The store id", required = true) @PathVariable long storeId,
             @ApiParam(name = "product", value = "The product to be created.") @RequestBody @Validated Product product) {
-        log.info("Creating product {}", product);
         product.setStoreId(storeId);
         return new ResourceCreated<>(this.service.create(product));
     }
@@ -51,7 +50,6 @@ public class ProductController {
     )
     @RequestMapping(value = {"/{storeId:\\d+}"}, method = RequestMethod.GET)
     public List<Product> getAll(@ApiParam(name = "storeId", value = "The store id.") @PathVariable long storeId) {
-        log.info("Getting all products");
         return this.service.getAllByStoreId(storeId);
     }
 
@@ -64,7 +62,6 @@ public class ProductController {
     @RequestMapping(value = {"/{productId:\\d+}/{storeId:\\d+}"}, method = RequestMethod.GET)
     public Product getById(@ApiParam(name = "productId", value = "The product id.") @PathVariable long productId,
                            @ApiParam(name = "storeId", value = "The product id.") @PathVariable long storeId) {
-        log.info("Getting product by id {} and by product {}", productId, storeId);
         return this.service.getByProductIdAndStoreId(productId, storeId).get();
     }
 

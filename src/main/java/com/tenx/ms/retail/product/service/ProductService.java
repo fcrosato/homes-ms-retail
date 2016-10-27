@@ -22,13 +22,16 @@ public class ProductService {
 
 
     @Transactional
-    public Long create(Product product)
-    {
+    public Long create(Product product) {
         return repository.save(CONVERTER.toT2(product)).getProductId();
     }
 
     public Optional<Product> getByProductIdAndStoreId(long productId, long storeId) {
         return repository.findByProductIdAndStoreId(productId, storeId).map(CONVERTER::toT1);
+    }
+
+    public Optional<ProductEntity> getEntityByProductIdAndStoreId(long productId, long storeId) {
+        return repository.findByProductIdAndStoreId(productId, storeId);
     }
 
     public List<Product> getAllByStoreId(long storeId) {

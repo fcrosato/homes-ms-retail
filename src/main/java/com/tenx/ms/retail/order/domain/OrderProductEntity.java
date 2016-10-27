@@ -25,6 +25,10 @@ public class OrderProductEntity {
     @ManyToOne
     @JoinColumn(name = "order_id", updatable = false)
     private OrderEntity order;
+
+    @Column(name = "product_id")
     private Long productId;
+
+    @Column(name = "count")
     private Long count;
 }

@@ -3,6 +3,7 @@ package com.tenx.ms.retail.product.rest.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -20,10 +21,12 @@ public class Product {
     private Long storeId;
 
     @ApiModelProperty(value = "The name of the product", required = true)
+    @Length(max = 50)
     @NotNull
     private String name;
 
     @ApiModelProperty(value = "The description of the product")
+    @Length(max = 500)
     private String description;
 
     @ApiModelProperty(value = "The SKU of the product", required = true)

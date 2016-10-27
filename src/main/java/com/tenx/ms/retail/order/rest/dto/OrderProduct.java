@@ -11,8 +11,10 @@ import javax.validation.constraints.NotNull;
 public class OrderProduct {
     @ApiModelProperty(value = "Order Id", required = true)
     private Long orderId;
+
     @ApiModelProperty(value = "Product Id", required = true)
     private Long productId;
+
     @ApiModelProperty(value = "Order Date", required = true)
     @NotNull
     private Long count;

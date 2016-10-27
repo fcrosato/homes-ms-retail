@@ -33,13 +33,12 @@ public class StockController {
             @ApiResponse(code = 500, message = "Internal server error.")}
     )
     @RequestMapping(value = {"/{productId:\\d+}/{storeId:\\d+}"}, method = RequestMethod.POST)
-    public void createOrUpdate (
+    public void createOrUpdate(
             @ApiParam(name = "productId", value = "The stock to be created.") @PathVariable Long productId,
             @ApiParam(name = "storeId", value = "The stock to be created.") @PathVariable Long storeId,
             @ApiParam(name = "stock", value = "The stock to be created.") @RequestBody @Validated Stock stock) {
-        log.info("Creating stock {}", stock);
         stock.setStoreId(storeId);
         stock.setProductId(productId);
-        service.create(stock);
+        service.createOrUpdate(stock, storeId, productId);
     }
 }

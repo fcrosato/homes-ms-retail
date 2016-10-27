@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.tenx.ms.commons.rest.RestConstants;
 import com.tenx.ms.commons.rest.dto.ResourceCreated;
 import com.tenx.ms.commons.tests.BaseIntegrationTest;
-import com.tenx.ms.retail.order.rest.dto.Order;
+import com.tenx.ms.retail.order.rest.dto.OrderResponse;
 import com.tenx.ms.retail.product.rest.dto.Product;
 import com.tenx.ms.retail.store.rest.dto.Store;
 import org.springframework.http.HttpMethod;
@@ -31,7 +31,8 @@ public class BaseTestGenerator extends BaseIntegrationTest {
     protected Store getStore(long storeId, HttpStatus expectedStatus) {
         String baseUrl = String.format(REQUEST_URI_STORE, getBasePath());
         return sendRequest(baseUrl + storeId, (String) null, HttpMethod.GET,
-                expectedStatus, new TypeReference<Store>() {});
+                expectedStatus, new TypeReference<Store>() {
+                });
     }
 
     protected Long createProduct(long storeId, File data, HttpStatus expectedStatus) {
@@ -46,18 +47,19 @@ public class BaseTestGenerator extends BaseIntegrationTest {
     protected Product getProduct(long storeId, long productId, HttpStatus expectedStatus) {
         String baseUrl = String.format(REQUEST_URI_PRODUCT, getBasePath());
         return sendRequest(baseUrl + productId + "/" + storeId, (String) null, HttpMethod.GET,
-                expectedStatus, new TypeReference<Product>() {});
+                expectedStatus, new TypeReference<Product>() {
+                });
     }
 
     protected void createStock(long storeId, long productId, File data, HttpStatus expectedStatus) {
         String baseUrl = String.format(REQUEST_URI_STOCK, getBasePath());
-        sendRequest( baseUrl + productId + "/" + storeId, data, HttpMethod.POST, expectedStatus, null);
+        sendRequest(baseUrl + productId + "/" + storeId, data, HttpMethod.POST, expectedStatus, null);
     }
 
-    protected Order createOrder(long storeId, File data, HttpStatus expectedStatus) {
+    protected OrderResponse createOrder(long storeId, File data, HttpStatus expectedStatus) {
         String baseUrl = String.format(REQUEST_URI_ORDER, getBasePath());
-        Order response = sendRequest(
-                baseUrl + storeId, data, HttpMethod.POST, expectedStatus, new TypeReference<Order>() {
+        OrderResponse response = sendRequest(
+                baseUrl + storeId, data, HttpMethod.POST, expectedStatus, new TypeReference<OrderResponse>() {
                 });
 
         return response != null ? response : null;

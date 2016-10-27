@@ -19,9 +19,10 @@ import javax.validation.constraints.NotNull;
 public class StoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "store_id")
     private Long storeId;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 }

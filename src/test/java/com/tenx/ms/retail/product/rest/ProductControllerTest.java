@@ -64,7 +64,8 @@ public class ProductControllerTest extends BaseTestGenerator {
         Long product2 = createProduct(storeId, createProductSuccess2, HttpStatus.OK);
         String url = String.format(REQUEST_URI_PRODUCT, getBasePath()) + storeId;
         List<Product> products = sendRequest(url, (String) null,
-                HttpMethod.GET, HttpStatus.OK, new TypeReference<List<Product>>() {});
+                HttpMethod.GET, HttpStatus.OK, new TypeReference<List<Product>>() {
+                });
         assertNotNull("Product list shouldn't be null", products);
         assertEquals("Product count does not match", products.size(), 2);
         assertEquals("Product Ids do not match", products.get(0).getProductId(), product1);

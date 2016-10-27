@@ -38,7 +38,6 @@ public class StoreController {
     @RequestMapping(method = RequestMethod.POST)
     public ResourceCreated<Long> create(
             @ApiParam(name = "store", value = "The Store", required = true) @RequestBody @Validated Store store) {
-        log.info("Creating store {}", store);
         return new ResourceCreated<>(this.service.create(store));
     }
 
@@ -49,7 +48,6 @@ public class StoreController {
     )
     @RequestMapping(method = RequestMethod.GET)
     public List<Store> getAll() {
-        log.info("Getting all stores");
         return this.service.getAll();
     }
 
@@ -61,7 +59,6 @@ public class StoreController {
     )
     @RequestMapping(value = {"/{storeId:\\d+}"}, method = RequestMethod.GET)
     public Store getById(@ApiParam(name = "storeId", value = "The store id.") @PathVariable long storeId) {
-        log.info("Getting com.tenx.ms.retail.order by id {}", storeId);
         return this.service.getByStoreId(storeId).get();
     }
 }

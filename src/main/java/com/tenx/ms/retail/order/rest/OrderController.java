@@ -2,6 +2,7 @@ package com.tenx.ms.retail.order.rest;
 
 import com.tenx.ms.commons.rest.RestConstants;
 import com.tenx.ms.retail.order.rest.dto.Order;
+import com.tenx.ms.retail.order.rest.dto.OrderResponse;
 import com.tenx.ms.retail.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,10 +35,9 @@ public class OrderController {
             @ApiResponse(code = 500, message = "Internal server error.")}
     )
     @RequestMapping(value = {"/{storeId:\\d+}"}, method = RequestMethod.POST)
-    public Order create(
-            @ApiParam(name = "storeId",   value = "The store id.") @PathVariable() long  storeId,
+    public OrderResponse create(
+            @ApiParam(name = "storeId", value = "The store id.") @PathVariable() long storeId,
             @ApiParam(name = "order", value = "The order.") @RequestBody @Validated Order order) {
-        log.info("Creating order {}", order);
         order.setStoreId(storeId);
         return service.create(order);
     }

@@ -23,7 +23,7 @@
     <api-doc.version>v1</api-doc.version>
     <api-doc.title>Retail Service</api-doc.title>
     <api-doc.description>Provides Retail services</api-doc.description>
-    <api-doc.port>9020</api-doc.port>
+    <api-doc.port>9000</api-doc.port>
   </properties>
 
   <build>

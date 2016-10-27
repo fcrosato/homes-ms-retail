@@ -17,11 +17,21 @@ import javax.persistence.Table;
 public class ProductEntity {
     @Id
     @GeneratedValue
+    @Column(name = "product_id")
     private Long productId;
+
+    @Column(name = "store_id")
     private Long storeId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
-    @Column(unique = true)
+
+    @Column(unique = true, name = "sku", length = 10)
     private String sku;
+
+    @Column(name = "price")
     private Double price;
 }

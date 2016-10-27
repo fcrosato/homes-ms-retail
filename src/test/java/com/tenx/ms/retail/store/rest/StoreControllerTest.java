@@ -47,7 +47,8 @@ public class StoreControllerTest extends BaseTestGenerator {
         Long store1 = createStore(createStoreSuccess, HttpStatus.OK);
         Long store2 = createStore(createStoreSuccess, HttpStatus.OK);
         List<Store> stores = sendRequest(String.format(REQUEST_URI_STORE, getBasePath()), (String) null, HttpMethod.GET,
-                HttpStatus.OK, new TypeReference<List<Store>>() {});
+                HttpStatus.OK, new TypeReference<List<Store>>() {
+                });
         assertNotNull("Store list shouldn't be null", stores);
         assertEquals("Store count does not match", stores.size(), 2);
         assertEquals("Store Ids do not match", stores.get(0).getStoreId(), store1);

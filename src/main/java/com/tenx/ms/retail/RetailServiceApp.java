@@ -20,7 +20,7 @@ public class RetailServiceApp {
     private static String[] getDefaultProfile(String[] args) {
         SimpleCommandLinePropertySource properties = new SimpleCommandLinePropertySource(args);
         if (!properties.containsProperty("spring.profiles.active") && System.getenv("SPRING_PROFILES_ACTIVE") == null) {
-            return new String[] { "dev" };
+            return new String[]{"dev"};
         }
         return new String[0];
     }

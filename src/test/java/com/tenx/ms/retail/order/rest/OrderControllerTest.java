@@ -2,7 +2,7 @@ package com.tenx.ms.retail.order.rest;
 
 import com.tenx.ms.commons.config.Profiles;
 import com.tenx.ms.retail.BaseTestGenerator;
-import com.tenx.ms.retail.order.rest.dto.Order;
+import com.tenx.ms.retail.order.rest.dto.OrderResponse;
 import org.apache.commons.io.FileUtils;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.flywaydb.test.junit.FlywayTestExecutionListener;
@@ -82,12 +82,11 @@ public class OrderControllerTest extends BaseTestGenerator {
     @Test
     @FlywayTest
     public void testCreateOrderSuccess() {
-        Order order = createOrder(storeId, createOrderSuccess, HttpStatus.OK);
-        assertEquals("Store ids mismatch", storeId, order.getStoreId());
-        assertEquals("Product order count mismatch", productIds.size(), order.getProducts().size());
-        assertEquals("Product count mismatch", order.getProducts().get(0).getCount(), 50L);
-        assertEquals("Product count mismatch", order.getProducts().get(1).getCount(), 30L);
-        order.getProducts().stream().forEach(x -> assertTrue("Unable to find one of the created products",
+        OrderResponse orderResponse = createOrder(storeId, createOrderSuccess, HttpStatus.OK);
+        assertEquals("Product order count mismatch", productIds.size(), orderResponse.getProducts().size());
+        assertEquals("Product count mismatch", orderResponse.getProducts().get(0).getCount(), 50L);
+        assertEquals("Product count mismatch", orderResponse.getProducts().get(1).getCount(), 30L);
+        orderResponse.getProducts().stream().forEach(x -> assertTrue("Unable to find one of the created products",
                 productIds.contains(x.getProductId())));
     }
 

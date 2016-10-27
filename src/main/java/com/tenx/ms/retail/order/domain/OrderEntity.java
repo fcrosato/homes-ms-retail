@@ -25,13 +25,27 @@ public class OrderEntity {
     @Column(name = "order_id")
     private Long orderId;
 
+    @Column(name = "store_id")
     private Long storeId;
+
+    @Column(name = "order_date")
     private Date orderDate;
+
+    @Column(name = "status")
     private OrderStatusEnum status;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProductEntity> products;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phone")
     private String phone;
 }

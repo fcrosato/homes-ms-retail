@@ -2,6 +2,8 @@ package com.tenx.ms.retail.stock.rest;
 
 import com.tenx.ms.commons.config.Profiles;
 import com.tenx.ms.retail.BaseTestGenerator;
+import com.tenx.ms.retail.product.domain.ProductEntity;
+import com.tenx.ms.retail.product.service.ProductService;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.retail.stock.service.StockService;
 import org.flywaydb.test.annotation.FlywayTest;
@@ -28,9 +30,12 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 public class StockControllerTest extends BaseTestGenerator {
     private static Long storeId;
     private static Long productId;
+    private static ProductEntity product;
 
     @Autowired
     private StockService stockService;
+    @Autowired
+    private ProductService productService;
 
     @Value("classpath:store/success/create.json")
     private File createStoreSuccess;
@@ -50,13 +55,14 @@ public class StockControllerTest extends BaseTestGenerator {
     public void init() {
         storeId = createStore(createStoreSuccess, HttpStatus.OK);
         productId = createProduct(storeId, createProductSuccess, HttpStatus.OK);
+        product = productService.getEntityByProductIdAndStoreId(productId, storeId).get();
     }
 
     @Test
     @FlywayTest
     public void testCreateStock() {
         createStock(storeId, productId, createStockSuccess1, HttpStatus.OK);
-        Stock stock = this.stockService.findByProductIdAndStoreId(productId, storeId).get();
+        Stock stock = this.stockService.findByProduct(product).get();
         assertNotNull("Stock cannot be null", stock);
         assertEquals("Store ids mismatch", stock.getStoreId(), storeId);
         assertEquals("Products ids mismatch", stock.getProductId(), productId);
@@ -67,7 +73,7 @@ public class StockControllerTest extends BaseTestGenerator {
     public void testUpdateStock() {
         createStock(storeId, productId, createStockSuccess1, HttpStatus.OK);
         createStock(storeId, productId, createStockSuccess2, HttpStatus.OK);
-        Stock stock = this.stockService.findByProductIdAndStoreId(productId, storeId).get();
+        Stock stock = this.stockService.findByProduct(product).get();
         assertNotNull("Stock cannot be null", stock);
         assertEquals("Store ids mismatch", stock.getStoreId(), storeId);
         assertEquals("Products ids mismatch", stock.getProductId(), productId);
